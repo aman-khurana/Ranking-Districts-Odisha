@@ -1,0 +1,21 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+```{r}
+library(sp)
+library(RColorBrewer)
+ind2 = readRDS("IND_adm2.rds")
+final=read.csv('final_result.csv')
+```
+
+```{r}
+od2$NAME_2 = as.factor(od2$NAME_2)
+final=final[order(final$district),] #Ordering the districts alphabetically in                                        #the final data
+od2$index.data = final$index
+col_no = as.factor(as.numeric(cut(od2$index.data, c(0,20,40,60,80,100))))
+levels(col_no) = c("Index <20", "Index (20-40)", "Index (40-60)","Index (60-80)", "Index >= 80")
+od2$col_no = col_no
+myPalette = brewer.pal(5,"Greens")
+spplot(od2, "col_no", col=grey(.9), col.regions=myPalette, main="Odisha Districts According to the Calculated Index")
+```

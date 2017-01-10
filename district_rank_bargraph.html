@@ -1,0 +1,24 @@
+<html>
+<body>
+<h3 id="title" align="center"> RANKING DISTRICTS OF ODISHA BY SOCIO-ECONOMIC INDEX</h3>
+<div id="chartContainer">
+  <script src="/lib/d3.v4.3.0.js"></script>
+  <script src="http://d3js.org/d3.v4.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 1400, 1000);
+    d3.csv("district_ranked_result.csv", function (data) {
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(200, 40, 1000, 600)
+      var x=myChart.addMeasureAxis("x", "index");
+      x.title = 'INDEX SCORE';
+	  var y = myChart.addCategoryAxis("y", "district");
+      y.title ="DISTRICT";
+      myChart.addSeries(null, dimple.plot.bar);
+
+	  myChart.draw();
+    });
+  </script>
+</div>
+</body
+</html>
